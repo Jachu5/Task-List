@@ -8,6 +8,7 @@ android {
         applicationId "demo.wunderlist.alfredo_cerezo.wunderlist_demo"
         minSdkVersion 14
         targetSdkVersion 23
+        multiDexEnabled true
         versionCode 1
         versionName "1.0"
     }
