@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.raizlabs.android.dbflow.config.FlowManager;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
