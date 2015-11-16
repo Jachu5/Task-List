@@ -11,6 +11,17 @@ import android.view.MenuItem;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.adapter.TaskAdapter;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.TaskDatabaseAdapter;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.Command;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.CommandExecutor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.ThreadCommandExecutor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.CreateTaskUseCase;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -19,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        createTask();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -28,6 +40,32 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void createTask() {
+        final CommandExecutor mCommandExecutor = new ThreadCommandExecutor();
+        TaskDatabaseAdapter databaseAdapter = new TaskDatabaseAdapter();
+        TaskAdapter taskAdapter = new TaskAdapter(databaseAdapter);
+
+        final TaskInteractor createTask = new CreateTaskUseCase(taskAdapter, new Task());
+
+        mCommandExecutor.run(new Command() {
+            @Override
+            public void run() {
+                createTask.execute(new Observer<Void>() {
+                    @Override
+                    public void onFinished(Void result) {
+
+                    }
+
+                    @Override
+                    public void onError(WunderlistException exception) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
