@@ -1,4 +1,4 @@
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.executor;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
