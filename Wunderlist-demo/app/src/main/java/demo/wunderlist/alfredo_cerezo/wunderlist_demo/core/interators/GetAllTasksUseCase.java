@@ -5,27 +5,25 @@ import java.util.List;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
 
 /**
- * Created by alfredocerezoluna on 16/11/15.
+ * Created by jachu on 17/11/15.
  */
-public class CreateTaskUseCase implements TaskInteractor {
+public class GetAllTasksUseCase implements GetAllTaskInteractor {
 
     private TaskGateway mTaskGateway;
-    private Task mTask;
 
-    public CreateTaskUseCase(TaskGateway taskGateway, Task task) {
+    public GetAllTasksUseCase(TaskGateway taskGateway) {
         this.mTaskGateway = taskGateway;
-        this.mTask = task;
     }
 
-
     @Override
-    public void execute(Observer<Void> observer) {
+    public void execute(Observer<List<Task>> observer) {
         if (observer == null) {
             throw new IllegalArgumentException("Observer can't be null");
         }
-        this.mTaskGateway.createTask(mTask, observer);
+
+        this.mTaskGateway.getAllTasks(observer);
     }
 }

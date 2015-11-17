@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +24,8 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistExcep
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +49,12 @@ public class MainActivity extends AppCompatActivity {
         final CommandExecutor mCommandExecutor = new ThreadCommandExecutor();
         TaskDatabaseAdapter databaseAdapter = new TaskDatabaseAdapter();
         TaskAdapter taskAdapter = new TaskAdapter(databaseAdapter);
-
-        final TaskInteractor createTask = new CreateTaskUseCase(taskAdapter, new Task());
+        Task task = new Task();
+        task.setCompleted(false);
+        task.setContent("Blablabla");
+        task.setOrder(1);
+        task.setTaskId(12);
+        final TaskInteractor createTask = new CreateTaskUseCase(taskAdapter, task);
 
         mCommandExecutor.run(new Command() {
             @Override
@@ -55,12 +62,12 @@ public class MainActivity extends AppCompatActivity {
                 createTask.execute(new Observer<Void>() {
                     @Override
                     public void onFinished(Void result) {
-
+                        Log.d(TAG, "Task created ");
                     }
 
                     @Override
                     public void onError(WunderlistException exception) {
-
+                        Log.e(TAG, "Error while creating a task", exception);
                     }
                 });
             }

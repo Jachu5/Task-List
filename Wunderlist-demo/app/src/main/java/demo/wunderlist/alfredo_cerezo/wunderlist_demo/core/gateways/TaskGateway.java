@@ -7,7 +7,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
- * <p/>
+ * <p>
  * Interface for Tsak repository management
  */
 public interface TaskGateway {
@@ -20,5 +20,5 @@ public interface TaskGateway {
      */
     public void createTask(Task task, Observer<Void> observer);
 
-    public void getAllTasks(Observer<List<Task>> allTask);
+    public void getAllTasks(Observer<List<Task>> observer);
 }
