@@ -10,12 +10,14 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
  */
 public interface TaskInteractor {
 
-    /**
-     * Use case execution operation
-     *
-     * @param observer use case observer
-     */
-    void execute(final Observer<Void> observer);
+
+    public interface UnparametrizedTaskInteractor {
+        void execute(final Observer<Void> observer);
+    }
+
+    public interface ParametrizedTaskInteractor {
+        void execute(Task task, final Observer<Void> observer);
+    }
 
 
 }
