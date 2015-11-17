@@ -30,28 +30,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getAllTaskTest();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
-            }
-        });
-    }
-
-    private void getAllTaskTest() {
-        GetAllTaskInteractor getAllTaskInteractor = ((ApplicationWunderlist) getApplication()).getTaskComponent().provideGetAllTaskInteractor();
-        getAllTaskInteractor.execute(new Observer<List<Task>>() {
-            @Override
-            public void onFinished(List<Task> result) {
-                Log.d(TAG, "Finished");
-            }
-
-            @Override
-            public void onError(WunderlistException exception) {
-                Log.e(TAG, "Finished with error", exception);
             }
         });
     }
