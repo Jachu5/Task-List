@@ -16,8 +16,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderl
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void createTaskTest() {
-        TaskInteractor.ParametrizedTaskInteractor createTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideCreateTaskInteractor();
+        TaskInteractors.CreateTaskInteractor createTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideCreateTaskInteractor();
         Task task = new Task();
         task.setCompleted(true);
         task.setContent("Blebleble");
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getAllTaskTest() {
-        GetAllTaskInteractor getAllTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideGetAllTaskInteractor();
+        TaskInteractors.GetAllTaskInteractor getAllTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideGetAllTaskInteractor();
         getAllTaskInteractor.execute(new Observer<List<Task>>() {
             @Override
             public void onFinished(List<Task> result) {

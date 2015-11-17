@@ -4,8 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Component;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.dagger.modules.InteractorsModule;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
 
 /**
  * Created by jachu on 17/11/15.
@@ -13,7 +12,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInte
 @Singleton
 @Component(modules = {InteractorsModule.class})
 public interface ApplicationComponent {
-    GetAllTaskInteractor provideGetAllTaskInteractor();
+    TaskInteractors.GetAllTaskInteractor provideGetAllTaskInteractor();
 
-    TaskInteractor.ParametrizedTaskInteractor provideCreateTaskInteractor();
+    TaskInteractors.CreateTaskInteractor provideCreateTaskInteractor();
 }

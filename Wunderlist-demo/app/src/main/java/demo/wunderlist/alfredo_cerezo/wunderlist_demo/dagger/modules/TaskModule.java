@@ -7,8 +7,6 @@ import dagger.Provides;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.adapter.TaskDatabaseAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.DatabaseAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.GetAllTasksUseCase;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
 
 /**
  * Created by jachu on 17/11/15.

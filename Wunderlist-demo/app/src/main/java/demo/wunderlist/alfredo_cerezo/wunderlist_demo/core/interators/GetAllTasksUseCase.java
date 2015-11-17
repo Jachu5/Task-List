@@ -7,12 +7,12 @@ import javax.inject.Inject;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
 
 /**
  * Created by jachu on 17/11/15.
  */
-public class GetAllTasksUseCase implements GetAllTaskInteractor {
+public class GetAllTasksUseCase implements TaskInteractors.GetAllTaskInteractor {
 
     private TaskGateway mTaskGateway;
 
