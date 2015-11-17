@@ -12,6 +12,8 @@ import android.view.MenuItem;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 
+import java.util.List;
+
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.adapter.TaskAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.TaskDatabaseAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.Command;
@@ -20,7 +22,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.ThreadCom
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.CreateTaskUseCase;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.GetAllTasksUseCase;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,13 +38,38 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         createTask();
-
+        getAllTask();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+    }
+
+    private void getAllTask() {
+        final CommandExecutor mCommandExecutor = new ThreadCommandExecutor();
+        TaskDatabaseAdapter databaseAdapter = new TaskDatabaseAdapter();
+        TaskAdapter taskAdapter = new TaskAdapter(databaseAdapter);
+
+        final GetAllTaskInteractor getAllTask = new GetAllTasksUseCase(taskAdapter);
+
+        mCommandExecutor.run(new Command() {
+            @Override
+            public void run() {
+                getAllTask.execute(new Observer<List<Task>>() {
+                    @Override
+                    public void onFinished(List<Task> result) {
+                        Log.d(TAG, "List of tasks retrieed, size: " + result.size());
+                    }
+
+                    @Override
+                    public void onError(WunderlistException exception) {
+                        Log.e(TAG, "Error while retrieving list of tasks", exception);
+                    }
+                });
             }
         });
     }
