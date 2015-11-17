@@ -36,9 +36,5 @@ public class TaskModule {
         return adapter;
     }
 
-    @Provides
-    @Singleton
-    GetAllTaskInteractor provideGetAllTaskInteractor(GetAllTasksUseCase usecase) {
-        return usecase;
-    }
+
 }
