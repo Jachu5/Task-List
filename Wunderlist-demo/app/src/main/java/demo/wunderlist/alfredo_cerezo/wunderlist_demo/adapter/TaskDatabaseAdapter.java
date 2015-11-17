@@ -2,7 +2,9 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.adapter;
 
 import java.util.List;
 
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.TaskDatabaseAdapter;
+import javax.inject.Inject;
+
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.DatabaseAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
@@ -11,11 +13,12 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistExcep
 /**
  * Created by alfredocerezoluna on 16/11/15.
  */
-public class TaskAdapter implements TaskGateway {
+public class TaskDatabaseAdapter implements TaskGateway {
 
-    private TaskDatabaseAdapter mTaskDatabaseAdapter;
+    private DatabaseAdapter mTaskDatabaseAdapter;
 
-    public TaskAdapter(TaskDatabaseAdapter taskAdapter) {
+    @Inject
+    public TaskDatabaseAdapter(DatabaseAdapter taskAdapter) {
         this.mTaskDatabaseAdapter = taskAdapter;
     }
 

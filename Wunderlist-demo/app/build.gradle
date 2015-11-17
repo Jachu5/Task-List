@@ -32,4 +32,9 @@ dependencies {
     apt 'com.raizlabs.android:DBFlow-Compiler:2.2.1'
     compile "com.raizlabs.android:DBFlow-Core:2.2.1"
     compile "com.raizlabs.android:DBFlow:2.2.1"
+
+    // Dagger2 dependencies
+    apt "com.google.dagger:dagger-compiler:2.0.1"
+    compile 'com.google.dagger:dagger:2.0.1'
+    compile 'javax.annotation:javax.annotation-api:1.2'
 }

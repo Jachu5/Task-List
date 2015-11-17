@@ -2,21 +2,17 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
 
-import java.util.ArrayList;
-import java.util.Deque;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.ConcurrentLinkedDeque;
 
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
  */
-public class TaskDatabaseAdapter {
+public class DatabaseAdapter {
 
-    public TaskDatabaseAdapter() {
+    public DatabaseAdapter() {
 
     }
 

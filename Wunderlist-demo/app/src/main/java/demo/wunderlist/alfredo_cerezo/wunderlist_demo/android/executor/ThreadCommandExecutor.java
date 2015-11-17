@@ -28,7 +28,7 @@ public class ThreadCommandExecutor implements CommandExecutor {
     }
 
     /**
-     * Constructor with paramenters
+     * Constructor with parameters
      *
      * @param corePoolSize  executor thread pool size
      * @param maxPoolSize   executor maximum thread pool size

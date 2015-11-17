@@ -10,22 +10,15 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.raizlabs.android.dbflow.config.FlowManager;
-
 import java.util.List;
 
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.adapter.TaskAdapter;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database.TaskDatabaseAdapter;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.Command;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.CommandExecutor;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.ThreadCommandExecutor;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.CreateTaskUseCase;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators.GetAllTasksUseCase;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.GetAllTaskInteractor;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,12 +30,28 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getAllTaskTest();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+    }
+
+    private void getAllTaskTest() {
+        GetAllTaskInteractor getAllTaskInteractor = ((ApplicationWunderlist) getApplication()).getTaskComponent().provideGetAllTaskInteractor();
+        getAllTaskInteractor.execute(new Observer<List<Task>>() {
+            @Override
+            public void onFinished(List<Task> result) {
+                Log.d(TAG, "Finished");
+            }
+
+            @Override
+            public void onError(WunderlistException exception) {
+                Log.e(TAG, "Finished with error", exception);
             }
         });
     }

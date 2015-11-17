@@ -2,6 +2,8 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
@@ -14,6 +16,7 @@ public class GetAllTasksUseCase implements GetAllTaskInteractor {
 
     private TaskGateway mTaskGateway;
 
+    @Inject
     public GetAllTasksUseCase(TaskGateway taskGateway) {
         this.mTaskGateway = taskGateway;
     }

@@ -10,7 +10,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  * Created by alfredocerezoluna on 16/11/15.
  */
 
-@Table(databaseName = TaskDatabase.NAME)
+@Table(databaseName = Database.NAME)
 public class TaskModel extends BaseModel {
 
     @Column(name = "id")
