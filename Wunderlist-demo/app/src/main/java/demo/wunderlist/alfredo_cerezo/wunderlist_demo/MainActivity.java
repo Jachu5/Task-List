@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        createTask();
-        getAllTask();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,61 +45,6 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
-    }
-
-    private void getAllTask() {
-        final CommandExecutor mCommandExecutor = new ThreadCommandExecutor();
-        TaskDatabaseAdapter databaseAdapter = new TaskDatabaseAdapter();
-        TaskAdapter taskAdapter = new TaskAdapter(databaseAdapter);
-
-        final GetAllTaskInteractor getAllTask = new GetAllTasksUseCase(taskAdapter);
-
-        mCommandExecutor.run(new Command() {
-            @Override
-            public void run() {
-                getAllTask.execute(new Observer<List<Task>>() {
-                    @Override
-                    public void onFinished(List<Task> result) {
-                        Log.d(TAG, "List of tasks retrieed, size: " + result.size());
-                    }
-
-                    @Override
-                    public void onError(WunderlistException exception) {
-                        Log.e(TAG, "Error while retrieving list of tasks", exception);
-                    }
-                });
-            }
-        });
-    }
-
-    private void createTask() {
-        final CommandExecutor mCommandExecutor = new ThreadCommandExecutor();
-        TaskDatabaseAdapter databaseAdapter = new TaskDatabaseAdapter();
-        TaskAdapter taskAdapter = new TaskAdapter(databaseAdapter);
-        Task task = new Task();
-        task.setCompleted(false);
-        task.setContent("Blablabla");
-        task.setOrder(1);
-        task.setTaskId(12);
-        final TaskInteractor createTask = new CreateTaskUseCase(taskAdapter, task);
-
-        mCommandExecutor.run(new Command() {
-            @Override
-            public void run() {
-                createTask.execute(new Observer<Void>() {
-                    @Override
-                    public void onFinished(Void result) {
-                        Log.d(TAG, "Task created ");
-                    }
-
-                    @Override
-                    public void onError(WunderlistException exception) {
-                        Log.e(TAG, "Error while creating a task", exception);
-                    }
-                });
-            }
-        });
-
     }
 
     @Override
