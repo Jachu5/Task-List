@@ -7,11 +7,35 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- text style -->
+    <style name="MainTextBasic">
+        <item name="android:textSize">25sp</item>
+        <item name="android:typeface">sans</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="TaskItem_card_text_style" parent="MainTextBasic">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColorHint">@color/TaskList_white_with_50_transparency</item>
+        <item name="android:textColorHintInverse">@color/TaskList_white_with_50_transparency</item>
+    </style>
+
+
+    <!-- Tool Bar theme -->
+    <style name="AppTheme.Toolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="android:background">@color/TaskList_toolbar_background_blue</item>
+        <item name="android:textColor">@color/TaskList_toolbar_text_color</item>
+        <item name="android:textStyle">normal</item>
+    </style>
 
 </resources>

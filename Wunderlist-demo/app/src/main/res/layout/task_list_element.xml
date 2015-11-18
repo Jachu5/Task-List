@@ -13,14 +13,15 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="36dp">
 
             <TextView
                 android:id="@+id/task_content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:textSize="30sp" />
+                android:textSize="20sp" />
         </RelativeLayout>
 
 
