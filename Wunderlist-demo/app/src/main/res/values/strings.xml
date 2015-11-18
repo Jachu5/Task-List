@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Wunderlist-demo</string>
     <string name="action_settings">Settings</string>
+
+    <!-- Task List header -->
+    <string name="TaskList_header_EditText_hint">Add task</string>
 </resources>

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.DividerItemDecoration;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.TaskListAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
 
         ArrayList<Task> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 50; i++) {
             Task task = new Task();
             task.setContent("blebleble");
             data.add(task);

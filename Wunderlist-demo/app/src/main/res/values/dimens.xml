@@ -3,4 +3,17 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- Task List dimensions -->
+    <dimen name="TaskList_card_padding_left">5dp</dimen>
+    <dimen name="TaskList_card_padding_right">5dp</dimen>
+    <dimen name="TaskList_card_padding_top">5dp</dimen>
+    <dimen name="TaskList_card_padding_bottom">5dp</dimen>
+
+    <!-- Task List element attributes -->
+    <dimen name="TaskList_card_element_card_radius">2dp</dimen>
+    <dimen name="TaskList_card_element_padding">10dp</dimen>
+    <dimen name="TaskList_card_element_text_size">15sp</dimen>
+
+
 </resources>
