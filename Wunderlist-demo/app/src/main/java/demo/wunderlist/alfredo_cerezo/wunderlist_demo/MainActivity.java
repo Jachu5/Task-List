@@ -1,18 +1,25 @@
 package demo.wunderlist.alfredo_cerezo.wunderlist_demo;
 
 import android.os.Bundle;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.DividerItemDecoration;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.TaskListAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
@@ -26,10 +33,34 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        initToolBar();
+        initList();
         createTaskTest();
         getAllTaskTest();
+        initFloatingButton();
+    }
+
+    private void initList() {
+        //RecyclerView
+        RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
+
+        ArrayList<Task> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            Task task = new Task();
+            task.setContent("blebleble");
+            data.add(task);
+        }
+
+        TaskListAdapter adapter = new TaskListAdapter(data);
+        list.setAdapter(adapter);
+        list.setLayoutManager(
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+//        list.addItemDecoration(
+//                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        list.setItemAnimator(new DefaultItemAnimator());
+    }
+
+    private void initFloatingButton() {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,6 +69,17 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    private void initToolBar() {
+        //App bar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        // getSupportActionBar().setTitle("Wunderlist");
+
+        //CollapsingToolbarLayout
+        CollapsingToolbarLayout ctlLayout = (CollapsingToolbarLayout) findViewById(R.id.ctlLayout);
+        ctlLayout.setTitle(getString(R.string.app_name));
     }
 
     private void createTaskTest() {
