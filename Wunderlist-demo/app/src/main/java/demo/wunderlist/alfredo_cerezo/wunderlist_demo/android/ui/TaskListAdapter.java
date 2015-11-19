@@ -21,6 +21,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by jachu on 18/11/15.
+ * <p/>
+ * This class works as an adapter to the list and is the model of the MVP pattern,
+ * note that the model in MVP might contain UI element specific properties
  */
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -124,6 +127,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return position == POSITION_HEADER;
     }
 
+    /**
+     * Class to store references to each view of each element of the list,
+     * works as the view of the MVP pattern, it sends to the presenter each time
+     * the user interacts with the view through the appropriate interface (ListElementListener),
+     */
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView taskContent;
@@ -154,6 +162,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
+    /**
+     * Class to store references to the header of the list, view in charge of the creation of new tasks,
+     * works as the view of the MVP pattern, it sends to the presenter each time
+     * the user interacts with the view through the appropriate interface (ListElementListener)
+     */
     public static class TaskViewHolderHeader extends RecyclerView.ViewHolder {
 
         private final EditText taskEditable;
