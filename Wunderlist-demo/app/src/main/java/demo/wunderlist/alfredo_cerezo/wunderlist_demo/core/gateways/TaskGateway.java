@@ -22,5 +22,7 @@ public interface TaskGateway {
 
     public void updateTask(Task task, Observer<Void> observer);
 
+    public void deleteTask(Task task, Observer<Void> observer);
+
     public void getAllTasks(Observer<List<Task>> observer);
 }

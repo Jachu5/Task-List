@@ -12,9 +12,12 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 @Singleton
 @Component(modules = {InteractorsModule.class})
 public interface ApplicationComponent {
+
     TaskInteractors.GetAllTaskInteractor provideGetAllTaskInteractor();
 
     TaskInteractors.CreateTaskInteractor provideCreateTaskInteractor();
 
     TaskInteractors.UpdateTaskInteractor provideUpdateTaskInteractor();
+
+    TaskInteractors.DeleteTaskInteractor provideDeleteTaskInteractor();
 }

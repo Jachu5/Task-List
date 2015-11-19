@@ -16,6 +16,11 @@ public class DatabaseAdapter {
 
     }
 
+    public void delteTask(Task task) {
+        TaskModel taskModel = getModelFromTask(task);
+        taskModel.delete();
+    }
+
     public void updateTask(Task task) {
         TaskModel taskModel = getModelFromTask(task);
         taskModel.update();

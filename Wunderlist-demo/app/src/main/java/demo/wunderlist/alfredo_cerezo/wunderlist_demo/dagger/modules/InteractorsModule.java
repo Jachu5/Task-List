@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.use_cases.CreateTaskUseCase;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.use_cases.DeleteTaskUseCase;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.use_cases.GetAllTasksUseCase;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.use_cases.UpdateTaskUseCase;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
@@ -30,6 +31,12 @@ public class InteractorsModule {
     @Provides
     @Singleton
     TaskInteractors.CreateTaskInteractor provideCreateTaskInteractor(CreateTaskUseCase useCase) {
+        return useCase;
+    }
+
+    @Provides
+    @Singleton
+    TaskInteractors.DeleteTaskInteractor provideCreateTaskInteractor(DeleteTaskUseCase useCase) {
         return useCase;
     }
 }
