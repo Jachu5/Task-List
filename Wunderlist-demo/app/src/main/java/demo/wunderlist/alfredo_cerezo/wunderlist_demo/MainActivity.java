@@ -2,16 +2,12 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo;
 
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -51,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         final TaskListAdapter adapter = new TaskListAdapter(data);
-        adapter.setListener(new TaskListAdapter.HeaderListener() {
+        adapter.setHeaderListener(new TaskListAdapter.HeaderListener() {
             @Override
             public void onTaskAddingTouch() {
 
@@ -62,6 +58,18 @@ public class MainActivity extends AppCompatActivity {
                 Task task = new Task();
                 task.setContent(taskText);
                 adapter.addTask(task);
+            }
+        });
+
+        adapter.setElementListener(new TaskListAdapter.ListElementListener() {
+            @Override
+            public void onCheckTask(int taskPosition) {
+                adapter.removeTask(taskPosition);
+            }
+
+            @Override
+            public void onUnCheckTask(int taskPOsition) {
+
             }
         });
         list.setAdapter(adapter);

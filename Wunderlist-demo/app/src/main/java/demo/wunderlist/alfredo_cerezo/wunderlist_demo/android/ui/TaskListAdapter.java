@@ -1,16 +1,17 @@
 package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui;
 
+import android.sax.ElementListener;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
@@ -21,11 +22,15 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
  */
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private ArrayList<Task> mTasks;
-    private HeaderListener mListener;
 
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_HEADER = 2;
+    private static final int POSITION_HEADER = 0;
+
+    private ArrayList<Task> mTasks;
+    private HeaderListener mHeaderListener;
+    private ListElementListener mElementListener;
+
 
     public TaskListAdapter(List<Task> tasks) {
         if (tasks == null) {
@@ -33,8 +38,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         mTasks = new ArrayList<>();
         mTasks.addAll(tasks);
-
-
     }
 
     public interface HeaderListener {
@@ -43,18 +46,36 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onAddTaskTouch(String taskText);
     }
 
-    public void setListener(HeaderListener listener) {
-        if (listener != null) {
-            mListener = listener;
-        } else {
-            throw new IllegalArgumentException("Listener can't be null");
-        }
+    public interface ListElementListener {
+        void onCheckTask(int taskPosition);
 
+        void onUnCheckTask(int taskPosition);
+    }
+
+    public void setHeaderListener(HeaderListener listener) {
+        if (listener != null) {
+            mHeaderListener = listener;
+        } else {
+            throw new IllegalArgumentException("Header listener can't be null");
+        }
+    }
+
+    public void setElementListener(ListElementListener listener) {
+        if (listener != null) {
+            mElementListener = listener;
+        } else {
+            throw new IllegalArgumentException("Element listener can't be null");
+        }
     }
 
     public void addTask(Task task) {
         mTasks.add(0, task);
-        notifyItemInserted(1);
+        notifyItemInserted(1); //header
+    }
+
+    public void removeTask(int taskPosition) {
+        mTasks.remove(taskPosition - 1); //header
+        notifyItemRemoved(taskPosition);
     }
 
     @Override
@@ -63,11 +84,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         switch (viewType) {
             case TYPE_ITEM:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_element, parent, false);
-                return TaskViewHolder.newInstance(view);
+                return new TaskViewHolder(view, mElementListener);
 
             case TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_element_header, parent, false);
-                return new TaskViewHolderHeader(view, mListener);
+                return new TaskViewHolderHeader(view, mHeaderListener);
         }
         throw new RuntimeException("There is no type that matches the type " + viewType + " + make sure your using types correctly");
     }
@@ -98,26 +119,36 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     private boolean isPositionHeader(int position) {
-        return position == 0;
+        return position == POSITION_HEADER;
     }
 
     public static class TaskViewHolder extends RecyclerView.ViewHolder {
 
         private final TextView taskContent;
+        private final CheckBox checkBox;
 
-        public TaskViewHolder(View itemView, TextView itemTextView) {
+        public TaskViewHolder(View itemView, final ListElementListener listener) {
             super(itemView);
-            taskContent = itemTextView;
+            taskContent = (TextView) itemView.findViewById(R.id.task_content);
+            checkBox = (CheckBox) itemView.findViewById(R.id.task_check_completed);
+            checkBox.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        if (checkBox.isChecked()) {
+                            listener.onCheckTask(getAdapterPosition());
+                        } else {
+                            listener.onUnCheckTask(getAdapterPosition());
+                        }
+                    }
+                }
+            });
 
-        }
-
-        public static TaskViewHolder newInstance(View parent) {
-            TextView taskContent = (TextView) parent.findViewById(R.id.task_content);
-            return new TaskViewHolder(parent, taskContent);
         }
 
         public void bindTask(Task task) {
             taskContent.setText(task.getContent());
+            checkBox.setChecked(task.isCompleted());
         }
     }
 
@@ -154,7 +185,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private void resetEditText() {
             taskEditable.getText().clear();
-            taskEditable.clearFocus();
         }
 
         private static boolean isEmpty(String editText) {

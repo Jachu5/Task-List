@@ -20,7 +20,7 @@
             android:padding="@dimen/TaskList_card_element_padding">
 
             <CheckBox
-                android:id="@+id/check_completed_task"
+                android:id="@+id/task_check_completed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/check_completed_task"
+                android:layout_toRightOf="@id/task_check_completed"
                 android:textSize="@dimen/TaskList_card_element_text_size"
                 tools:text="task to do" />
 
