@@ -21,22 +21,27 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private LinkedList<Task> mTasks;
+    private HeaderListener mListener;
 
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_HEADER = 2;
 
-    public TaskListAdapter(List<Task> tasks) {
+    public TaskListAdapter(List<Task> tasks, HeaderListener listener) {
         if (tasks == null) {
             throw new IllegalArgumentException("tasks cannot be null");
         }
         mTasks = new LinkedList<>();
         mTasks.addAll(tasks);
+
+        mListener = listener;
     }
 
-    public interface onClickAddListener {
-        void setTaskText(String taskText);
+    public interface HeaderListener {
+        void onTaskAddingTouch();
 
+        void onAddTaskTouch(String taskText);
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -48,7 +53,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             case TYPE_HEADER:
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_list_element_header, parent, false);
-                return TaskViewHolderHeader.newInstance(view);
+                return new TaskViewHolderHeader(view, mListener);
         }
         throw new RuntimeException("There is no type that matches the type " + viewType + " + make sure your using types correctly");
     }
@@ -58,20 +63,6 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (!isPositionHeader(position)) {
             TaskViewHolder holder = (TaskViewHolder) viewHolder;
             holder.bindTask(this.mTasks.get(position - 1)); // header
-        } else {
-            TaskViewHolderHeader holder = (TaskViewHolderHeader) viewHolder;
-            onClickAddListener listener = new onClickAddListener() {
-
-                @Override
-                public void setTaskText(String taskText) {
-                    Task task = new Task();
-                    task.setContent(taskText);
-                    mTasks.addFirst(task);
-                    TaskListAdapter.this.notifyItemInserted(1);
-                }
-            };
-            holder.setDataUpdateListener(listener);
-
         }
     }
 
@@ -120,40 +111,37 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private final EditText taskEditable;
         private final ImageButton addButton;
-        private onClickAddListener listener;
 
-        public TaskViewHolderHeader(View itemView, EditText itemEditTextView, ImageButton button) {
+        public TaskViewHolderHeader(View itemView, final HeaderListener listener) {
             super(itemView);
-            taskEditable = itemEditTextView;
-            addButton = button;
+            taskEditable = (EditText) itemView.findViewById(R.id.header_add_task_text);
+            taskEditable.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    listener.onTaskAddingTouch();
+                }
+            });
+            addButton = (ImageButton) itemView.findViewById(R.id.header_add_text_button);
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String taskText = taskEditable.getText().toString();
                     if (!isEmpty(taskText)) {
-                        listener.setTaskText(taskText);
+                        listener.onAddTaskTouch(taskText);
+                        resetEditText();
                     }
                 }
             });
         }
 
+        private void resetEditText() {
+            taskEditable.getText().clear();
+            taskEditable.clearFocus();
+        }
 
         private static boolean isEmpty(String editText) {
             return TextUtils.isEmpty(editText);
         }
-
-        public static TaskViewHolderHeader newInstance(View parent) {
-            EditText taskEditable = (EditText) parent.findViewById(R.id.header_add_task_text);
-            ImageButton addButton = (ImageButton) parent.findViewById(R.id.header_add_text_button);
-
-            return new TaskViewHolderHeader(parent, taskEditable, addButton);
-        }
-
-        public void setDataUpdateListener(onClickAddListener listener) {
-            this.listener = listener;
-        }
-
-
     }
 }
 

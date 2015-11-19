@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,12 +50,21 @@ public class MainActivity extends AppCompatActivity {
             data.add(task);
         }
 
-        TaskListAdapter adapter = new TaskListAdapter(data);
+        TaskListAdapter.HeaderListener listener = new TaskListAdapter.HeaderListener() {
+            @Override
+            public void onTaskAddingTouch() {
+                Log.d(TAG, "Header task touhed");
+            }
+
+            @Override
+            public void onAddTaskTouch(String taskText) {
+                Log.d(TAG, "Header add touhed");
+            }
+        };
+        TaskListAdapter adapter = new TaskListAdapter(data, listener);
         list.setAdapter(adapter);
-        list.setLayoutManager(
-                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        list.addItemDecoration(
-//                new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+        list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+
         list.setItemAnimator(new DefaultItemAnimator());
     }
 
