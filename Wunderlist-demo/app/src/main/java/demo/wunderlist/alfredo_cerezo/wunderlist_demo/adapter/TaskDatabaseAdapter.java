@@ -33,6 +33,16 @@ public class TaskDatabaseAdapter implements TaskGateway {
     }
 
     @Override
+    public void updateTask(Task task, Observer<Void> observer) {
+        try {
+            mTaskDatabaseAdapter.updateTask(task);
+            observer.onFinished(null);
+        } catch (Exception exception) {
+            observer.onError(new WunderlistException());
+        }
+    }
+
+    @Override
     public void getAllTasks(Observer<List<Task>> observer) {
         try {
             List<Task> taskList = mTaskDatabaseAdapter.getAllTask();

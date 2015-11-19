@@ -14,6 +14,10 @@ public interface TaskInteractors {
         void execute(Task task, final Observer<Void> observer);
     }
 
+    interface UpdateTaskInteractor {
+        void execute(Task task, final Observer<Void> observer);
+    }
+
     interface GetAllTaskInteractor {
         void execute(final Observer<List<Task>> observer);
     }

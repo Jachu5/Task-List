@@ -15,4 +15,6 @@ public interface ApplicationComponent {
     TaskInteractors.GetAllTaskInteractor provideGetAllTaskInteractor();
 
     TaskInteractors.CreateTaskInteractor provideCreateTaskInteractor();
+
+    TaskInteractors.UpdateTaskInteractor provideUpdateTaskInteractor();
 }

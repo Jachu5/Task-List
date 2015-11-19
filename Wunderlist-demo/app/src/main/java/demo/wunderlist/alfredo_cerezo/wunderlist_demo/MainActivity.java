@@ -30,21 +30,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolBar();
-        initList();
-        createTaskTest();
         getAllTaskTest();
     }
 
-    private void initList() {
+    private void initList(List<Task> listTask) {
         //RecyclerView
         RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
 
-        ArrayList<Task> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
-            Task task = new Task();
-            task.setContent("blebleble");
-            data.add(task);
-        }
+        ArrayList<Task> data = new ArrayList<>(listTask);
 
         final TaskListAdapter adapter = new TaskListAdapter(data);
         adapter.setHeaderListener(new TaskListAdapter.HeaderListener() {
@@ -58,13 +51,18 @@ public class MainActivity extends AppCompatActivity {
                 Task task = new Task();
                 task.setContent(taskText);
                 adapter.addTask(task);
+                createTaskTest(task);
             }
         });
 
         adapter.setElementListener(new TaskListAdapter.ListElementListener() {
             @Override
             public void onCheckTask(int taskPosition) {
+                Task task = adapter.getTask(taskPosition);
+                task.setCompleted(true);
+                updateTask(task);
                 adapter.removeTask(taskPosition);
+
             }
 
             @Override
@@ -83,20 +81,14 @@ public class MainActivity extends AppCompatActivity {
         //App bar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        // getSupportActionBar().setTitle("Wunderlist");
-
-        //CollapsingToolbarLayout
         CollapsingToolbarLayout ctlLayout = (CollapsingToolbarLayout) findViewById(R.id.ctlLayout);
         ctlLayout.setTitle(getString(R.string.app_name));
     }
 
-    private void createTaskTest() {
+
+    private void createTaskTest(Task task) {
         TaskInteractors.CreateTaskInteractor createTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideCreateTaskInteractor();
-        Task task = new Task();
-        task.setCompleted(true);
-        task.setContent("Blebleble");
-        task.setOrder(1);
-        task.setTaskId(12);
+        task.setCompleted(false);
         createTaskInteractor.execute(task, new Observer<Void>() {
             @Override
             public void onFinished(Void result) {
@@ -110,11 +102,30 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //TODO remove final
+    private void updateTask(final Task task) {
+        TaskInteractors.UpdateTaskInteractor updateTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideUpdateTaskInteractor();
+        updateTaskInteractor.execute(task, new Observer<Void>() {
+            @Override
+            public void onFinished(Void result) {
+                Log.i(TAG, "task with ID:" + task.getId() + "has been added");
+            }
+
+            @Override
+            public void onError(WunderlistException exception) {
+                Log.e(TAG, "Finished task updating with error", exception);
+            }
+        });
+    }
+
+
     private void getAllTaskTest() {
         TaskInteractors.GetAllTaskInteractor getAllTaskInteractor = ((ApplicationWunderlist) getApplication()).getApplicationComponent().provideGetAllTaskInteractor();
+        final List<Task> taskList = new ArrayList<>();
         getAllTaskInteractor.execute(new Observer<List<Task>>() {
             @Override
             public void onFinished(List<Task> result) {
+                initList(result);
                 Log.d(TAG, "Finished");
             }
 
@@ -123,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.e(TAG, "Finished with error", exception);
             }
         });
+
     }
 
     @Override

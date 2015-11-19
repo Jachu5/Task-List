@@ -16,6 +16,11 @@ public class DatabaseAdapter {
 
     }
 
+    public void updateTask(Task task) {
+        TaskModel taskModel = getModelFromTask(task);
+        taskModel.update();
+    }
+
     public void createTask(Task task) {
         TaskModel taskModel = getModelFromTask(task);
         taskModel.insert();
@@ -39,9 +44,8 @@ public class DatabaseAdapter {
 
     private TaskModel getModelFromTask(Task task) {
         TaskModel taskModel = new TaskModel();
-        taskModel.setTaskId(task.getTaskId());
+        taskModel.setId(task.getId());
         taskModel.setCompleted(task.isCompleted());
-        taskModel.setOrder(task.getOrder());
         taskModel.setContent(task.getContent());
 
         return taskModel;
@@ -50,8 +54,7 @@ public class DatabaseAdapter {
 
     private Task getTaskFromModel(TaskModel model) {
         Task task = new Task();
-        task.setTaskId(model.getTaskId());
-        task.setOrder(model.getOrder());
+        task.setId(model.getId());
         task.setContent(model.getContent());
         task.setCompleted(model.isCompleted());
 

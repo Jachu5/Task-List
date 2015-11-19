@@ -18,17 +18,9 @@ public class TaskModel extends BaseModel {
     @NotNull
     long mId;
 
-    @Column(name = "taskId")
-    @NotNull
-    long mTaskId;
-
     @Column(name = "completed")
     @NotNull
     boolean mCompleted;
-
-    @Column(name = "order")
-    @NotNull
-    int mOrder;
 
     @Column(name = "content")
     @NotNull
@@ -38,12 +30,12 @@ public class TaskModel extends BaseModel {
         super();
     }
 
-    public long getTaskId() {
-        return mTaskId;
+    public long getId() {
+        return mId;
     }
 
-    public void setTaskId(long mTaskId) {
-        this.mTaskId = mTaskId;
+    public void setId(long mTaskId) {
+        this.mId = mTaskId;
     }
 
     public boolean isCompleted() {
@@ -52,14 +44,6 @@ public class TaskModel extends BaseModel {
 
     public void setCompleted(boolean mCompleted) {
         this.mCompleted = mCompleted;
-    }
-
-    public int getOrder() {
-        return mOrder;
-    }
-
-    public void setOrder(int mOrder) {
-        this.mOrder = mOrder;
     }
 
     public String getContent() {

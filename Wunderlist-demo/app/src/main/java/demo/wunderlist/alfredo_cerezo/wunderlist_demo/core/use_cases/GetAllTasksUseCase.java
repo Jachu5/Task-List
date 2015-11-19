@@ -1,4 +1,4 @@
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.interators;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.use_cases;
 
 import java.util.List;
 

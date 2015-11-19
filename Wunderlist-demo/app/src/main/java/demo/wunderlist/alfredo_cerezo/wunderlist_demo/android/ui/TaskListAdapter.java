@@ -45,6 +45,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         mTasks.addAll(tasks);
     }
 
+
     public interface HeaderListener {
         void onTaskAddingTouch();
 
@@ -71,6 +72,10 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         } else {
             throw new IllegalArgumentException("Element listener can't be null");
         }
+    }
+
+    public Task getTask(int position) {
+        return mTasks.get(position - 1); // header
     }
 
     public void addTask(Task task) {

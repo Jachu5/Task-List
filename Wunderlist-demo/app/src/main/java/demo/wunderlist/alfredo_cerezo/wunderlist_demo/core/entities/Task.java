@@ -6,21 +6,20 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities;
  */
 //TODO implement builder pattern
 public class Task {
-    private long mTaskId;
+    private long mId;
     private boolean mCompleted;
-    private int mOrder;
     private String mContent;
 
-    public Task(){
+    public Task() {
 
     }
 
-    public long getTaskId() {
-        return mTaskId;
+    public long getId() {
+        return mId;
     }
 
-    public void setTaskId(long mTaskId) {
-        this.mTaskId = mTaskId;
+    public void setId(long mTaskId) {
+        this.mId = mTaskId;
     }
 
     public boolean isCompleted() {
@@ -29,14 +28,6 @@ public class Task {
 
     public void setCompleted(boolean mCompleted) {
         this.mCompleted = mCompleted;
-    }
-
-    public int getOrder() {
-        return mOrder;
-    }
-
-    public void setOrder(int mOrder) {
-        this.mOrder = mOrder;
     }
 
     public String getContent() {
