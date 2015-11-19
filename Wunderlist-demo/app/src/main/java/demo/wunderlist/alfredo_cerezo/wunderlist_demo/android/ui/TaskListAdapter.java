@@ -2,7 +2,9 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui;
 
 import android.sax.ElementListener;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -160,14 +162,25 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TaskViewHolderHeader(View itemView, final HeaderListener listener) {
             super(itemView);
             taskEditable = (EditText) itemView.findViewById(R.id.header_add_task_text);
-            taskEditable.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            taskEditable.addTextChangedListener(new TextWatcher() {
                 @Override
-                public void onFocusChange(View v, boolean hasFocus) {
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                     if (listener != null) {
                         listener.onTaskAddingTouch();
                     }
                 }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
             });
+
             addButton = (ImageButton) itemView.findViewById(R.id.header_add_text_button);
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override

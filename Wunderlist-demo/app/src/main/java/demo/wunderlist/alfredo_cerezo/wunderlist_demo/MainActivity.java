@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         adapter.setHeaderListener(new TaskListAdapter.HeaderListener() {
             @Override
             public void onTaskAddingTouch() {
-
+                Log.i(TAG, "Task edition triggered");
             }
 
             @Override
