@@ -50,18 +50,20 @@ public class MainActivity extends AppCompatActivity {
             data.add(task);
         }
 
-        TaskListAdapter.HeaderListener listener = new TaskListAdapter.HeaderListener() {
+        final TaskListAdapter adapter = new TaskListAdapter(data);
+        adapter.setListener(new TaskListAdapter.HeaderListener() {
             @Override
             public void onTaskAddingTouch() {
-                Log.d(TAG, "Header task touhed");
+
             }
 
             @Override
             public void onAddTaskTouch(String taskText) {
-                Log.d(TAG, "Header add touhed");
+                Task task = new Task();
+                task.setContent(taskText);
+                adapter.addTask(task);
             }
-        };
-        TaskListAdapter adapter = new TaskListAdapter(data, listener);
+        });
         list.setAdapter(adapter);
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 

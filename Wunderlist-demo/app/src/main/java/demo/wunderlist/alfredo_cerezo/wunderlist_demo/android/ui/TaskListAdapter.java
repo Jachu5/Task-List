@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,20 +21,20 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
  */
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private LinkedList<Task> mTasks;
+    private ArrayList<Task> mTasks;
     private HeaderListener mListener;
 
     private static final int TYPE_ITEM = 1;
     private static final int TYPE_HEADER = 2;
 
-    public TaskListAdapter(List<Task> tasks, HeaderListener listener) {
+    public TaskListAdapter(List<Task> tasks) {
         if (tasks == null) {
             throw new IllegalArgumentException("tasks cannot be null");
         }
-        mTasks = new LinkedList<>();
+        mTasks = new ArrayList<>();
         mTasks.addAll(tasks);
 
-        mListener = listener;
+
     }
 
     public interface HeaderListener {
@@ -42,6 +43,19 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onAddTaskTouch(String taskText);
     }
 
+    public void setListener(HeaderListener listener) {
+        if (listener != null) {
+            mListener = listener;
+        } else {
+            throw new IllegalArgumentException("Listener can't be null");
+        }
+
+    }
+
+    public void addTask(Task task) {
+        mTasks.add(0, task);
+        notifyItemInserted(1);
+    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -118,7 +132,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             taskEditable.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
-                    listener.onTaskAddingTouch();
+                    if (listener != null) {
+                        listener.onTaskAddingTouch();
+                    }
                 }
             });
             addButton = (ImageButton) itemView.findViewById(R.id.header_add_text_button);
@@ -127,7 +143,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 public void onClick(View v) {
                     String taskText = taskEditable.getText().toString();
                     if (!isEmpty(taskText)) {
-                        listener.onAddTaskTouch(taskText);
+                        if (listener != null) {
+                            listener.onAddTaskTouch(taskText);
+                        }
                         resetEditText();
                     }
                 }
