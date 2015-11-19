@@ -22,7 +22,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by jachu on 18/11/15.
- * <p>
+ * <p/>
  * This class works as an adapter to the list and is the model of the MVP pattern,
  * note that the model in MVP might contain UI element specific properties
  */
@@ -48,12 +48,14 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public boolean onItemMove(int fromPosition, int toPosition) {
-        if (fromPosition < toPosition) {
-            for (int i = fromPosition; i < toPosition; i++) {
+        int fromPositionNoHeader = fromPosition - 1;
+        int toPositionNoHeader = toPosition - 1;
+        if (fromPositionNoHeader < toPositionNoHeader) {
+            for (int i = fromPositionNoHeader; i < toPositionNoHeader; i++) {
                 Collections.swap(mTasks, i, i + 1);
             }
         } else {
-            for (int i = fromPosition; i > toPosition; i--) {
+            for (int i = fromPositionNoHeader; i > toPositionNoHeader   ; i--) {
                 Collections.swap(mTasks, i, i - 1);
             }
         }
