@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.SimpleItemTouchHelperCallback;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.TaskListAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
@@ -74,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
         list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
         list.setItemAnimator(new DefaultItemAnimator());
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(list);
     }
 
 

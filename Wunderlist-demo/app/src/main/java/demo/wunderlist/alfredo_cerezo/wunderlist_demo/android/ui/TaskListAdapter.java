@@ -14,6 +14,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
@@ -21,11 +22,11 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by jachu on 18/11/15.
- * <p/>
+ * <p>
  * This class works as an adapter to the list and is the model of the MVP pattern,
  * note that the model in MVP might contain UI element specific properties
  */
-public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
 
 
     private static final int TYPE_ITEM = 1;
@@ -43,6 +44,26 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
         mTasks = new ArrayList<>();
         mTasks.addAll(tasks);
+    }
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if (fromPosition < toPosition) {
+            for (int i = fromPosition; i < toPosition; i++) {
+                Collections.swap(mTasks, i, i + 1);
+            }
+        } else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(mTasks, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        removeTask(position);
     }
 
 
@@ -221,6 +242,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private static boolean isEmpty(String editText) {
             return TextUtils.isEmpty(editText);
         }
+
+
     }
 }
 
