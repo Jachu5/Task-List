@@ -19,14 +19,25 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/TaskList_card_element_padding">
 
+            <ImageButton
+                android:id="@+id/header_add_text_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@android:color/transparent"
+                android:src="@android:drawable/ic_input_add" />
+
             <EditText
-                android:id="@+id/add_task"
+                android:id="@+id/header_add_task_text"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_alignBottom="@id/header_add_text_button"
+                android:layout_centerInParent="true"
+                android:layout_toLeftOf="@id/header_add_text_button"
                 android:hint="@string/TaskList_header_EditText_hint"
-
+                android:singleLine="true"
                 android:textSize="@dimen/TaskList_card_element_text_size" />
+
         </RelativeLayout>
 
 

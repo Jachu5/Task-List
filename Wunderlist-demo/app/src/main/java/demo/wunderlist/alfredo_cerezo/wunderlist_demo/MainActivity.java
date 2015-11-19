@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         initList();
         createTaskTest();
         getAllTaskTest();
-        initFloatingButton();
     }
 
     private void initList() {
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
 
         ArrayList<Task> data = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 3; i++) {
             Task task = new Task();
             task.setContent("blebleble");
             data.add(task);
@@ -59,16 +58,6 @@ public class MainActivity extends AppCompatActivity {
         list.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void initFloatingButton() {
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
 
     private void initToolBar() {
         //App bar
