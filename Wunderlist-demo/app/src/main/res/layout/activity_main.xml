@@ -17,7 +17,8 @@
             android:id="@+id/ctlLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <include
                 android:id="@+id/app_bar"

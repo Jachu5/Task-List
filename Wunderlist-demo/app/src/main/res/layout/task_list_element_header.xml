@@ -25,7 +25,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:background="@android:color/transparent"
-                android:src="@android:drawable/ic_input_add" />
+                android:src="@drawable/add_button"
+                android:tint="@color/TaskList_colorPrimary" />
 
             <EditText
                 android:id="@+id/header_add_task_text"

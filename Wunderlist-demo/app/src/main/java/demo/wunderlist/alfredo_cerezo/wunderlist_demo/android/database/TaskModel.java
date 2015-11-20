@@ -8,6 +8,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
+ *
+ * DBflow library ORM data Model, it defines the mapping between the DTO objects and the DB,
+ * it uses a unique ID generated to serve as PrimaryKey.
  */
 
 @Table(databaseName = Database.NAME)

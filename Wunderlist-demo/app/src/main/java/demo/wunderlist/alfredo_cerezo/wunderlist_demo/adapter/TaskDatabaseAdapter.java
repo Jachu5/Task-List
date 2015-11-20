@@ -12,6 +12,12 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistExcep
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
+ * <p/>
+ * This adapter works to serve as a joint between the useCase and the the repository,
+ * the main advantage of this approach is that it really easy to maintain and change,
+ * lets suppose we would like to change our repository of tasks, and use a network connection,
+ * or any other sotrage device, we only need to implemtn the Gateway and using DI (Dagger2),
+ * provide the new adapter to the UseCase.
  */
 public class TaskDatabaseAdapter implements TaskGateway {
 

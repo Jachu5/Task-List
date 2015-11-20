@@ -13,4 +13,7 @@
     <color name="TaskList_toolbar_background_blue">#446495</color>
     <color name="TaskList_toolbar_text_color">#FFFFFF</color>
     <color name="TaskList_white_with_50_transparency">#80FFFFFF</color>
+
+    // Headet List color
+
 </resources>

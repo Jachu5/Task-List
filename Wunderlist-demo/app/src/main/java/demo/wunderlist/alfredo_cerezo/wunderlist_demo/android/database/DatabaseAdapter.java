@@ -9,6 +9,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
+ * <p/>
+ * This adapter is the final layer (a concrete implementation ) of the repository gateway, it handles the logic to store the data
+ * in a specific repository, in this case a DB managed by DBFlow.
  */
 public class DatabaseAdapter {
 
