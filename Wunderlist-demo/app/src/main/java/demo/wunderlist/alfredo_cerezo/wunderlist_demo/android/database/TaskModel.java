@@ -14,9 +14,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 public class TaskModel extends BaseModel {
 
     @Column(name = "id")
-    @PrimaryKey(autoincrement = true)
+    @PrimaryKey
     @NotNull
-    long mId;
+    String mId;
 
     @Column(name = "position")
     @NotNull
@@ -34,8 +34,12 @@ public class TaskModel extends BaseModel {
         super();
     }
 
-    public long getId() {
+    public String getId() {
         return mId;
+    }
+
+    public void setId(String mTaskId) {
+        this.mId = mTaskId;
     }
 
     public int getPosition() {
@@ -44,10 +48,6 @@ public class TaskModel extends BaseModel {
 
     public void setPosition(int position) {
         this.mPosition = position;
-    }
-
-    public void setId(long mTaskId) {
-        this.mId = mTaskId;
     }
 
     public boolean isCompleted() {

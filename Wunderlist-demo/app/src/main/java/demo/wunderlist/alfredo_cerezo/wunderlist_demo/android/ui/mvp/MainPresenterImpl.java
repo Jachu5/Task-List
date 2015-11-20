@@ -3,6 +3,8 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
 import android.content.Context;
 import android.util.Log;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
@@ -71,7 +73,9 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     @Override
     public void onAddTask(final String taskString, int position) {
-        final Task task = createTask(taskString, position);
+        String id = generateUniqueId();
+        final Task task = createTask(taskString, position, id);
+
         mCommandExecutor.run(new Command() {
             @Override
             public void run() {
@@ -149,8 +153,15 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     }
 
-    private Task createTask(String taskString, int position) {
+    public static final int ID_LENGTH = 10;
+
+    public String generateUniqueId() {
+        return RandomStringUtils.randomAlphanumeric(ID_LENGTH);
+    }
+
+    private Task createTask(String taskString, int position, String id) {
         Task task = new Task();
+        task.setId(id);
         task.setCompleted(false);
         task.setPosition(position);
         task.setContent(taskString);
