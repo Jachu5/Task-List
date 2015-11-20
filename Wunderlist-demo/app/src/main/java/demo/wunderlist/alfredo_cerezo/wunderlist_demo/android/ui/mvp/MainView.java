@@ -1,0 +1,21 @@
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
+
+import java.util.List;
+
+/**
+ * Created by jachu on 19/11/15.
+ */
+public interface MainView<T> {
+
+
+    public void removeTask(T task);
+
+    public void onCheckTask(int position);
+
+    public void onUnCheckTask(int position);
+
+    public void addTask(T task);
+
+    public void setItems(List<T> items);
+
+}

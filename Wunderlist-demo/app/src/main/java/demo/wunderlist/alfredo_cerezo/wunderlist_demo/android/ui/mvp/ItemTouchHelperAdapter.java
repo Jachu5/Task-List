@@ -1,4 +1,4 @@
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
 
 /**
  * Created by alfredocerezoluna on 19/11/15.

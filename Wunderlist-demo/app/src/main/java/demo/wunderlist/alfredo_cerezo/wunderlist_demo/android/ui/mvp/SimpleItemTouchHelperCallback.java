@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
