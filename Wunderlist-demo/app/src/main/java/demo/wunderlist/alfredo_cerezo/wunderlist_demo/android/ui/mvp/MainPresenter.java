@@ -7,7 +7,7 @@ public interface MainPresenter<T> {
 
     public void onResume();
 
-    public void onAddTask(String taskString);
+    public void onAddTask(String taskString, int position);
 
     public void onCheckBoxTouched(boolean checked, int position);
 

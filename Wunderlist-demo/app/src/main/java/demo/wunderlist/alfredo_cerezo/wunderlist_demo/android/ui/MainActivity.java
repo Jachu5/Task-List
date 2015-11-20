@@ -13,6 +13,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
@@ -48,18 +50,25 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
     }
 
 
-    private void initList(List<Task> listTask) {
-        RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
-        ArrayList<Task> data = new ArrayList<>(listTask);
-        mAdapter = new TaskListAdapter(data, mPresenter);
+    private void initList(final List<Task> listTask) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ArrayList<Task> data = new ArrayList<>(listTask);
+                Collections.sort(data);
+                mAdapter = new TaskListAdapter(data, mPresenter);
+                final RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
+                list.setAdapter(mAdapter);
+                list.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.VERTICAL, false));
+                list.setItemAnimator(new DefaultItemAnimator());
+                ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
+                ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+                touchHelper.attachToRecyclerView(list);
+                
+            }
+        });
 
-        list.setAdapter(mAdapter);
-        list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        list.setItemAnimator(new DefaultItemAnimator());
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(list);
     }
 
 
@@ -94,8 +103,14 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
     }
 
     @Override
-    public void addTask(Task task) {
-        mAdapter.addTask(task);
+    public void addTask(final Task task) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.addTask(task);
+            }
+        });
+
     }
 
     @Override

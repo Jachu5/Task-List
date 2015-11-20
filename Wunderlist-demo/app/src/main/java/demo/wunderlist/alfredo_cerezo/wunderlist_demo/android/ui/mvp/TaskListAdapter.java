@@ -32,7 +32,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_HEADER = 2;
     private static final int POSITION_HEADER = 0;
 
-    private ArrayList<Task> mTasks;
+    private List<Task> mTasks;
     private MainPresenter mPresenter;
 
 
@@ -41,7 +41,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             throw new IllegalArgumentException("tasks cannot be null");
         }
         mPresenter = presenter;
-        mTasks = new ArrayList<>();
+        mTasks = Collections.synchronizedList(new ArrayList<Task>());
         mTasks.addAll(tasks);
     }
 
@@ -67,6 +67,11 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         if (mPresenter != null) {
             mPresenter.onSwipeTask(position); // header
         }
+    }
+
+    @Override
+    public boolean isHeader(int position) {
+        return isPositionHeader(position);
     }
 
 
@@ -204,7 +209,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     String taskText = taskEditable.getText().toString();
                     if (!isEmpty(taskText)) {
                         if (presenter != null) {
-                            presenter.onAddTask(taskText);
+                            int position = getLayoutPosition();
+                            presenter.onAddTask(taskText, position);
                         }
                         resetEditText();
                     }

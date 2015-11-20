@@ -6,6 +6,8 @@ import android.util.Log;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.Command;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.CommandExecutor;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
@@ -18,15 +20,18 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     public static final String TAG = "MainPresenterImpl";
 
-    private MainView mMainView;
-    private TaskInteractors.CreateTaskInteractor mCreateTaskInteractor;
-    private TaskInteractors.UpdateTaskInteractor mUpdateTaskInteractor;
-    private TaskInteractors.DeleteTaskInteractor mDeleteTaskInteractor;
-    private TaskInteractors.GetAllTaskInteractor mGetAllTaskInteractor;
+    private final MainView mMainView;
+    private final CommandExecutor mCommandExecutor;
+    private final TaskInteractors.CreateTaskInteractor mCreateTaskInteractor;
+    private final TaskInteractors.UpdateTaskInteractor mUpdateTaskInteractor;
+    private final TaskInteractors.DeleteTaskInteractor mDeleteTaskInteractor;
+    private final TaskInteractors.GetAllTaskInteractor mGetAllTaskInteractor;
 
 
     public MainPresenterImpl(MainView mainView, Context context) {
         mMainView = mainView;
+        mCommandExecutor = ((ApplicationWunderlist) context)
+                .getApplicationComponent().provideCommandExecutor();
         mCreateTaskInteractor = ((ApplicationWunderlist) context)
                 .getApplicationComponent().provideCreateTaskInteractor();
         mUpdateTaskInteractor = ((ApplicationWunderlist) context)
@@ -44,35 +49,47 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     }
 
     private void getAllTask() {
-        mGetAllTaskInteractor.execute(new Observer<List<Task>>() {
+        mCommandExecutor.run(new Command() {
             @Override
-            public void onFinished(List<Task> result) {
-                mMainView.setItems(result);
-                Log.d(TAG, "Finished");
-            }
+            public void run() {
+                mGetAllTaskInteractor.execute(new Observer<List<Task>>() {
+                    @Override
+                    public void onFinished(List<Task> result) {
+                        mMainView.setItems(result);
+                        Log.d(TAG, "Finished");
+                    }
 
-            @Override
-            public void onError(WunderlistException exception) {
-                Log.e(TAG, "Finished with error", exception);
+                    @Override
+                    public void onError(WunderlistException exception) {
+                        Log.e(TAG, "Finished with error", exception);
+                    }
+                });
             }
         });
+
     }
 
     @Override
-    public void onAddTask(final String taskString) {
-        final Task task = createTask(taskString);
-        mCreateTaskInteractor.execute(task, new Observer<Void>() {
+    public void onAddTask(final String taskString, int position) {
+        final Task task = createTask(taskString, position);
+        mCommandExecutor.run(new Command() {
             @Override
-            public void onFinished(Void result) {
-                Log.d(TAG, "Task created");
-                mMainView.addTask(task);
-            }
+            public void run() {
+                mCreateTaskInteractor.execute(task, new Observer<Void>() {
+                    @Override
+                    public void onFinished(Void result) {
+                        Log.d(TAG, "Task created");
+                        mMainView.addTask(task);
+                    }
 
-            @Override
-            public void onError(WunderlistException exception) {
-                Log.e(TAG, "Finished task creation with error", exception);
+                    @Override
+                    public void onError(WunderlistException exception) {
+                        Log.e(TAG, "Finished task creation with error", exception);
+                    }
+                });
             }
         });
+
     }
 
     @Override
@@ -87,17 +104,23 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     @Override
     public void updateTask(final Task task) {
-        mUpdateTaskInteractor.execute(task, new Observer<Void>() {
+        mCommandExecutor.run(new Command() {
             @Override
-            public void onFinished(Void result) {
-                Log.i(TAG, "task with ID:" + task.getId() + "has been added");
-            }
+            public void run() {
+                mUpdateTaskInteractor.execute(task, new Observer<Void>() {
+                    @Override
+                    public void onFinished(Void result) {
+                        Log.i(TAG, "task with ID:" + task.getId() + "has been added");
+                    }
 
-            @Override
-            public void onError(WunderlistException exception) {
-                Log.e(TAG, "Finished task updating with error", exception);
+                    @Override
+                    public void onError(WunderlistException exception) {
+                        Log.e(TAG, "Finished task updating with error", exception);
+                    }
+                });
             }
         });
+
     }
 
     @Override
@@ -107,22 +130,29 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     @Override
     public void deleteTask(final Task task) {
-        mDeleteTaskInteractor.execute(task, new Observer<Void>() {
+        mCommandExecutor.run(new Command() {
             @Override
-            public void onFinished(Void result) {
-                Log.i(TAG, "task with ID:" + task.getId() + "has been deleted");
-            }
+            public void run() {
+                mDeleteTaskInteractor.execute(task, new Observer<Void>() {
+                    @Override
+                    public void onFinished(Void result) {
+                        Log.i(TAG, "task with ID:" + task.getId() + "has been deleted");
+                    }
 
-            @Override
-            public void onError(WunderlistException exception) {
+                    @Override
+                    public void onError(WunderlistException exception) {
 
+                    }
+                });
             }
         });
+
     }
 
-    private Task createTask(String taskString) {
+    private Task createTask(String taskString, int position) {
         Task task = new Task();
         task.setCompleted(false);
+        task.setPosition(position);
         task.setContent(taskString);
         return task;
     }

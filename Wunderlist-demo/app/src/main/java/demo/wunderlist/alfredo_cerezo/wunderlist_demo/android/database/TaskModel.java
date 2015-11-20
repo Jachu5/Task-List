@@ -18,6 +18,10 @@ public class TaskModel extends BaseModel {
     @NotNull
     long mId;
 
+    @Column(name = "position")
+    @NotNull
+    int mPosition;
+
     @Column(name = "completed")
     @NotNull
     boolean mCompleted;
@@ -32,6 +36,14 @@ public class TaskModel extends BaseModel {
 
     public long getId() {
         return mId;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public void setPosition(int position) {
+        this.mPosition = position;
     }
 
     public void setId(long mTaskId) {
