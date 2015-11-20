@@ -64,7 +64,9 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onItemDismiss(int position) {
-        removeTask(position);
+        if (mPresenter != null) {
+            mPresenter.onSwipeTask(position); // header
+        }
     }
 
 
@@ -78,7 +80,8 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public void removeTask(int taskPosition) {
-        mTasks.remove(taskPosition - 1); //header
+
+        mTasks.remove(taskPosition - 1); //header was previously removed
         notifyItemRemoved(taskPosition);
     }
 

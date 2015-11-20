@@ -8,7 +8,7 @@ import java.util.List;
 public interface MainView<T> {
 
 
-    public void removeTask(T task);
+    public void onSwipeTask(int position);
 
     public void onCheckTask(int position);
 
@@ -17,5 +17,7 @@ public interface MainView<T> {
     public void addTask(T task);
 
     public void setItems(List<T> items);
+
+
 
 }

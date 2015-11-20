@@ -36,7 +36,7 @@ public class InteractorsModule {
 
     @Provides
     @Singleton
-    TaskInteractors.DeleteTaskInteractor provideCreateTaskInteractor(DeleteTaskUseCase useCase) {
+    TaskInteractors.DeleteTaskInteractor provideDeleteTaskInteractor(DeleteTaskUseCase useCase) {
         return useCase;
     }
 }

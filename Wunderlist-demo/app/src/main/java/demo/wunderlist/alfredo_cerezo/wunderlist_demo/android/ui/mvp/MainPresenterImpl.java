@@ -21,7 +21,9 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     private MainView mMainView;
     private TaskInteractors.CreateTaskInteractor mCreateTaskInteractor;
     private TaskInteractors.UpdateTaskInteractor mUpdateTaskInteractor;
+    private TaskInteractors.DeleteTaskInteractor mDeleteTaskInteractor;
     private TaskInteractors.GetAllTaskInteractor mGetAllTaskInteractor;
+
 
     public MainPresenterImpl(MainView mainView, Context context) {
         mMainView = mainView;
@@ -31,6 +33,8 @@ public class MainPresenterImpl implements MainPresenter<Task> {
                 .getApplicationComponent().provideUpdateTaskInteractor();
         mGetAllTaskInteractor = ((ApplicationWunderlist) context)
                 .getApplicationComponent().provideGetAllTaskInteractor();
+        mDeleteTaskInteractor = ((ApplicationWunderlist) context)
+                .getApplicationComponent().provideDeleteTaskInteractor();
 
     }
 
@@ -81,6 +85,7 @@ public class MainPresenterImpl implements MainPresenter<Task> {
         }
     }
 
+    @Override
     public void updateTask(final Task task) {
         mUpdateTaskInteractor.execute(task, new Observer<Void>() {
             @Override
@@ -91,6 +96,26 @@ public class MainPresenterImpl implements MainPresenter<Task> {
             @Override
             public void onError(WunderlistException exception) {
                 Log.e(TAG, "Finished task updating with error", exception);
+            }
+        });
+    }
+
+    @Override
+    public void onSwipeTask(int position) {
+        mMainView.onSwipeTask(position);
+    }
+
+    @Override
+    public void deleteTask(final Task task) {
+        mDeleteTaskInteractor.execute(task, new Observer<Void>() {
+            @Override
+            public void onFinished(Void result) {
+                Log.i(TAG, "task with ID:" + task.getId() + "has been deleted");
+            }
+
+            @Override
+            public void onError(WunderlistException exception) {
+
             }
         });
     }

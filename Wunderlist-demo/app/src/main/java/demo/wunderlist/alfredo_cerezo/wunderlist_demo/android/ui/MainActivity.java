@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
 
     private static String TAG = "MainActivity";
     private TaskListAdapter mAdapter;
-    private MainPresenter mPresenter;
+    private MainPresenter<Task> mPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,14 +99,16 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
     }
 
     @Override
-    public void removeTask(Task task) {
-
+    public void onSwipeTask(int taskPosition) {
+        mPresenter.deleteTask(mAdapter.getTask(taskPosition));
+        mAdapter.removeTask(taskPosition);
     }
 
     @Override
-    public void onCheckTask(int position) {
-        mAdapter.markTaskAsCompleted(position);
-        mPresenter.updateTask(mAdapter.getTask(position));
+    public void onCheckTask(int taskPosition) {
+        mAdapter.markTaskAsCompleted(taskPosition);
+        mPresenter.updateTask(mAdapter.getTask(taskPosition));
+
     }
 
     @Override

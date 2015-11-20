@@ -7,9 +7,5 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/action_favorite"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="ic_"
-        app:showAsAction="always" />
+
 </menu>

@@ -45,7 +45,7 @@ public class TaskDatabaseAdapter implements TaskGateway {
     @Override
     public void deleteTask(Task task, Observer<Void> observer) {
         try {
-            mTaskDatabaseAdapter.delteTask(task);
+            mTaskDatabaseAdapter.deleteTask(task);
             observer.onFinished(null);
         } catch (Exception exception) {
             observer.onError(new WunderlistException());
