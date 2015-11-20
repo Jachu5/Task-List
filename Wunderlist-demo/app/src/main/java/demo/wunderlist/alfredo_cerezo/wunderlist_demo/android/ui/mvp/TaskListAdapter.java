@@ -17,13 +17,18 @@ import java.util.Collections;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.swipw_and_move.ItemTouchHelperAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by jachu on 18/11/15.
  * <p/>
- * This class works as an adapter to the list and is the model of the MVP pattern,
- * note that the model in MVP might contain UI element specific properties
+ * This class works as an adapter to the list and is part of the view along the MainActivity of the MVP pattern,
+ * it holds two inner classes, the ViewHolders, to store UI elements references and avoid findViewById abuse,
+ * I don't specially like this approach, since having two inner classes is ugly, at least the inner classes
+ * are static which prevents memory leaks since the don't have any references to the outer class.
+ * Anyway, since the ViewHolders are only managed (in this scenario) by the Adapter I think they do not represent
+ * a serious danger.
  */
 public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ItemTouchHelperAdapter {
 
@@ -209,8 +214,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     String taskText = taskEditable.getText().toString();
                     if (!isEmpty(taskText)) {
                         if (presenter != null) {
-                            int position = getLayoutPosition();
-                            presenter.onAddTask(taskText, position);
+                            presenter.onAddTask(taskText);
                         }
                         resetEditText();
                     }

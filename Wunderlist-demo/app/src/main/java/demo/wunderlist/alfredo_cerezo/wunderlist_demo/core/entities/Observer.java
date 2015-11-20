@@ -5,7 +5,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistExcep
 /**
  * Created by alfredocerezoluna on 16/11/15.
  * <p/>
- * Interface for classes that need an observer without result arguments
+ * Interface to be used in the different layer communication process
  */
 
 

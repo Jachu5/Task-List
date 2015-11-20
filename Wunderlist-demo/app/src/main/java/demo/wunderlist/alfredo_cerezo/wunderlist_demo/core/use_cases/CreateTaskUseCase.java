@@ -9,6 +9,10 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
+ * <p/>
+ * <p/>
+ * This class implements the specific Business rules, in this case it implements the logic
+ * adding a new task to the DB (or other repository which implements the TaskGateway interface).
  */
 public class CreateTaskUseCase implements TaskInteractors.CreateTaskInteractor {
 

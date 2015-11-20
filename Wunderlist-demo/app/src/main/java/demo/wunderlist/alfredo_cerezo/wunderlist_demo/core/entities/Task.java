@@ -3,10 +3,11 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities;
 import org.apache.commons.lang3.RandomStringUtils;
 
 /**
- * Temporary class
  * Created by alfredocerezoluna on 16/11/15.
+ * <p/>
+ * Business Object to store Task Information
  */
-//TODO implement builder pattern
+
 public class Task implements Comparable<Task> {
 
     private String mId;
@@ -15,7 +16,7 @@ public class Task implements Comparable<Task> {
     private String mContent;
 
     public Task() {
-
+        //TODO implement builder pattern, maybe in a future.
     }
 
     public String getId() {

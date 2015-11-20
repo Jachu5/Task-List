@@ -13,13 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.swipw_and_move;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 
 /**
- * Created by alfredocerezoluna on 19/11/15.
+ * Modified? by alfredocerezoluna on 19/11/15.
+ *
+ * This class works as a helper to handle swipe and reorder gestures defining the
+ * callbacks to be passed to the Android's ItemTouchHelper which defines the behaviour of
+ * swiping and moving
  */
 public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
 

@@ -8,27 +8,24 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ApplicationWunderlist;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp.MainPresenter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp.MainPresenterImpl;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp.MainView;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp.SimpleItemTouchHelperCallback;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.swipw_and_move.SimpleItemTouchHelperCallback;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp.TaskListAdapter;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
 
+/**
+ * This class works as the View for the MVP pattern
+ */
 public class MainActivity extends AppCompatActivity implements MainView<Task> {
 
     private static String TAG = "MainActivity";
@@ -55,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
             @Override
             public void run() {
                 ArrayList<Task> data = new ArrayList<>(listTask);
-                Collections.sort(data);
+                Collections.reverse(data);
                 mAdapter = new TaskListAdapter(data, mPresenter);
                 final RecyclerView list = (RecyclerView) findViewById(R.id.recyclerView);
                 list.setAdapter(mAdapter);
@@ -64,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements MainView<Task> {
                 ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mAdapter);
                 ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
                 touchHelper.attachToRecyclerView(list);
-                
+
             }
         });
 

@@ -9,6 +9,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 
 /**
  * Created by alfredocerezoluna on 19/11/15.
+ * <p/>
+ * This class implements the specific Business rules, in this case it implements the logic
+ * deleting a specific task from the DB (or other repository which implements the TaskGateway interface).
  */
 public class DeleteTaskUseCase implements TaskInteractors.DeleteTaskInteractor {
 

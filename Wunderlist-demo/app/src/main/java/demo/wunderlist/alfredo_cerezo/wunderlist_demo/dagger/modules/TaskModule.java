@@ -11,7 +11,10 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
 /**
  * Created by jachu on 17/11/15.
  * <p/>
- * Class to provide taskRelated dependencies
+ * Class to provide taskRelated dependencies, this is very suitable for testing since it only needs to
+ * define a new provider with a fake repositories.
+ * i.e: TaskGateway provideDatabaseTaskGateway(FakeTaskDatabaseAdapter adapter) { return adapter; }
+ * or maybe a NetWork based TaskGateway
  */
 @Module
 public class TaskModule {

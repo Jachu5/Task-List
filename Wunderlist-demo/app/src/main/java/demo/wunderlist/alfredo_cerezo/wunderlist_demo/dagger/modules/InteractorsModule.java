@@ -12,6 +12,8 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 
 /**
  * Created by jachu on 17/11/15.
+ * <p/>
+ * Class to provide, using DI, interctors, again, we can define fake interactors with testing proposes.
  */
 @Module(includes = TaskModule.class)
 public class InteractorsModule {

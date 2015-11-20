@@ -17,6 +17,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 
 /**
  * Created by jachu on 19/11/15.
+ * <p/>
+ * This class works as the Presenter, both in the MVP pattern and in the Architecture,
+ * it holds the interactors which executes the business logic of the application
  */
 public class MainPresenterImpl implements MainPresenter<Task> {
 
@@ -72,9 +75,9 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     }
 
     @Override
-    public void onAddTask(final String taskString, int position) {
+    public void onAddTask(final String taskString) {
         String id = generateUniqueId();
-        final Task task = createTask(taskString, position, id);
+        final Task task = createTask(taskString, id);
 
         mCommandExecutor.run(new Command() {
             @Override
@@ -159,11 +162,10 @@ public class MainPresenterImpl implements MainPresenter<Task> {
         return RandomStringUtils.randomAlphanumeric(ID_LENGTH);
     }
 
-    private Task createTask(String taskString, int position, String id) {
+    private Task createTask(String taskString, String id) {
         Task task = new Task();
         task.setId(id);
         task.setCompleted(false);
-        task.setPosition(position);
         task.setContent(taskString);
         return task;
     }

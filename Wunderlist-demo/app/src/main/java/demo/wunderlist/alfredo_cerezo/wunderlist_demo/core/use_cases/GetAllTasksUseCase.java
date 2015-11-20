@@ -11,6 +11,9 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
 
 /**
  * Created by jachu on 17/11/15.
+ * <p/>
+ * This class implements the specific Business rules, in this case it implements the logic
+ * retrieving all tasks from the DB (or other repository which implements the TaskGateway interface).
  */
 public class GetAllTasksUseCase implements TaskInteractors.GetAllTaskInteractor {
 

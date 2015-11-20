@@ -14,10 +14,15 @@
  * limitations under the License.
  */
 
-package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
+package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.swipw_and_move;
 
 /**
  * Created by alfredocerezoluna on 19/11/15.
+ * <p/>
+ * Interface to communicate the model and the helper class for swiping and moving elements,
+ * it communicates for example, whether a gesture of reorder (moving) or deleting(swiping),
+ * has been done by the user, in this case de view will execute the appropriate action over the
+ * collection of data it shows, and also will communicate to the presenter the UI changes.
  */
 public interface ItemTouchHelperAdapter {
 

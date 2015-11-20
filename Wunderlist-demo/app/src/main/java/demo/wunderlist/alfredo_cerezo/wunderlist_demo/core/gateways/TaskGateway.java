@@ -8,16 +8,11 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 /**
  * Created by alfredocerezoluna on 16/11/15.
  * <p/>
- * Interface for Tsak repository management
+ * Interface for Task repository management, it works as boundary which transform the information
+ * from the outside into the kind of information the application uses, and vice versa
  */
 public interface TaskGateway {
 
-    /**
-     * Repository operation to create a new task, add the new task to the reposiroty
-     *
-     * @param task,     DTO containing the basic informarion to be stored
-     * @param observer, observer which notifies weather the action has been completed, or an error has been ocurred
-     */
     public void createTask(Task task, Observer<Void> observer);
 
     public void updateTask(Task task, Observer<Void> observer);
