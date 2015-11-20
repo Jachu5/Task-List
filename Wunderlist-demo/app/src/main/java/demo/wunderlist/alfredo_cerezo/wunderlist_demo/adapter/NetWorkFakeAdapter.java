@@ -9,10 +9,10 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.gateways.TaskGateway;
 
 /**
  * Created by jachu on 20/11/15.
- * <p/>
- * Adapter to implement a FAKE network connection
+ * <p>
+ * Adapter to implement a FAKE network connection, this is an example of how it will done
  */
-public class NetWorkFaveAdapter implements TaskGateway {
+public class NetWorkFakeAdapter implements TaskGateway {
 
     private FakeNetworkAdapter mFakeNetworkAdapter;
 

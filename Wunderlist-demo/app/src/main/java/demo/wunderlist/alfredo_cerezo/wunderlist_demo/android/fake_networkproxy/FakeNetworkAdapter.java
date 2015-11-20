@@ -8,8 +8,8 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
 /**
  * Created by jachu on 20/11/15.
- * <p/>
- * FAKE Network connection
+ * <p>
+ * FAKE Network connection, this an example of it would be done
  */
 public class FakeNetworkAdapter {
 
@@ -34,4 +34,5 @@ public class FakeNetworkAdapter {
     public List<Task> getAllTask() {
         return mNetworkConnection;
     }
+
 }
