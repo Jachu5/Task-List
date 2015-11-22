@@ -28,7 +28,7 @@
                 android:background="@android:color/transparent"
                 android:scaleType="fitXY"
                 android:src="@drawable/add_button"
-                android:tint="@color/TaskList_colorPrimary" />
+                android:tint="@color/TaskList_colorAccent" />
 
             <EditText
                 android:id="@+id/header_add_task_text"
