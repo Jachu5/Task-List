@@ -12,6 +12,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.Command;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.executor.CommandExecutor;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Observer;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.TaskFactory;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractors;
 
@@ -23,7 +24,7 @@ import demo.wunderlist.alfredo_cerezo.wunderlist_demo.interactors.TaskInteractor
  */
 public class MainPresenterImpl implements MainPresenter<Task> {
 
-    public static final String TAG = "MainPresenterImpl";
+    private static final String TAG = "MainPresenterImpl";
 
     private final MainView mMainView;
     private final CommandExecutor mCommandExecutor;
@@ -76,8 +77,8 @@ public class MainPresenterImpl implements MainPresenter<Task> {
 
     @Override
     public void onAddTask(final String taskString) {
-        String id = generateUniqueId();
-        final Task task = createTask(taskString, id);
+
+        final Task task = TaskFactory.createTaskWithNoId(false,taskString);
 
         mCommandExecutor.run(new Command() {
             @Override
@@ -154,19 +155,5 @@ public class MainPresenterImpl implements MainPresenter<Task> {
             }
         });
 
-    }
-
-    public static final int ID_LENGTH = 10;
-
-    public String generateUniqueId() {
-        return RandomStringUtils.randomAlphanumeric(ID_LENGTH);
-    }
-
-    private Task createTask(String taskString, String id) {
-        Task task = new Task();
-        task.setId(id);
-        task.setCompleted(false);
-        task.setContent(taskString);
-        return task;
     }
 }

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.TaskFactory;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
@@ -61,10 +62,7 @@ public class DatabaseAdapter {
     }
 
     private Task getTaskFromModel(TaskModel model) {
-        Task task = new Task();
-        task.setId(model.getId());
-        task.setContent(model.getContent());
-        task.setCompleted(model.isCompleted());
+        Task task = TaskFactory.createTaskWithId(model.getId(), model.isCompleted(), model.getContent());
 
         return task;
     }

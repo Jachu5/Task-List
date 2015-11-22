@@ -8,7 +8,7 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
- *
+ * <p/>
  * DBflow library ORM data Model, it defines the mapping between the DTO objects and the DB,
  * it uses a unique ID generated to serve as PrimaryKey.
  */
@@ -20,10 +20,6 @@ public class TaskModel extends BaseModel {
     @PrimaryKey
     @NotNull
     String mId;
-
-    @Column(name = "position")
-    @NotNull
-    int mPosition;
 
     @Column(name = "completed")
     @NotNull
@@ -43,14 +39,6 @@ public class TaskModel extends BaseModel {
 
     public void setId(String mTaskId) {
         this.mId = mTaskId;
-    }
-
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int position) {
-        this.mPosition = position;
     }
 
     public boolean isCompleted() {

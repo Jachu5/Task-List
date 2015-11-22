@@ -8,10 +8,9 @@ import org.apache.commons.lang3.RandomStringUtils;
  * Business Object to store Task Information
  */
 
-public class Task implements Comparable<Task> {
+public class Task {
 
     private String mId;
-    private int mPosition;
     private boolean mCompleted;
     private String mContent;
 
@@ -25,14 +24,6 @@ public class Task implements Comparable<Task> {
 
     public void setId(String id) {
         mId = id;
-    }
-
-    public int getPosition() {
-        return mPosition;
-    }
-
-    public void setPosition(int position) {
-        this.mPosition = position;
     }
 
     public boolean isCompleted() {
@@ -49,14 +40,5 @@ public class Task implements Comparable<Task> {
 
     public void setContent(String mContent) {
         this.mContent = mContent;
-    }
-
-
-    @Override
-    public int compareTo(Task task) {
-        int taskPosition = task.getPosition();
-        int cmp = mPosition > taskPosition ? +1 : mPosition < taskPosition ? -1 : 0;
-
-        return cmp;
     }
 }
