@@ -183,7 +183,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class TaskViewHolderHeader extends RecyclerView.ViewHolder {
 
         private final EditText taskEditable;
-        private final z addButton;
+        private final ImageButton addButton;
 
         public TaskViewHolderHeader(View itemView, final MainPresenter presenter) {
             super(itemView);
