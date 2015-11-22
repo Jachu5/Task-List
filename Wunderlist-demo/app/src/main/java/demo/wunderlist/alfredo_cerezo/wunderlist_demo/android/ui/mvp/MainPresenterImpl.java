@@ -80,7 +80,7 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     @Override
     public void onAddTask(final String taskString) {
 
-        final Task task = TaskFactory.createTaskWithNoId(false, taskString);
+        final Task task = TaskFactory.createTaskWithNoId(false, taskString, mNumberOfTask);
 
         mCommandExecutor.run(new Command() {
             @Override

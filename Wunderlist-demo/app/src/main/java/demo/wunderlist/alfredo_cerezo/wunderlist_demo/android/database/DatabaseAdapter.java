@@ -56,13 +56,14 @@ public class DatabaseAdapter {
         taskModel.setId(task.getId());
         taskModel.setCompleted(task.isCompleted());
         taskModel.setContent(task.getContent());
-
+        taskModel.setPosition(task.getPosition());
         return taskModel;
 
     }
 
     private Task getTaskFromModel(TaskModel model) {
-        Task task = TaskFactory.createTaskWithId(model.getId(), model.isCompleted(), model.getContent());
+        Task task = TaskFactory.createTaskWithId(model.getId(), model.isCompleted(),
+                model.getContent(), model.getPosition());
 
         return task;
     }

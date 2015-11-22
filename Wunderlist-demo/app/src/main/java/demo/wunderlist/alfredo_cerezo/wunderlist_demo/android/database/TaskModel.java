@@ -29,6 +29,10 @@ public class TaskModel extends BaseModel {
     @NotNull
     String mContent;
 
+    @Column(name = "position")
+    @NotNull
+    int mPosition;
+
     public TaskModel() {
         super();
     }
@@ -55,5 +59,13 @@ public class TaskModel extends BaseModel {
 
     public void setContent(String mContent) {
         this.mContent = mContent;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public void setPosition(int mPosition) {
+        this.mPosition = mPosition;
     }
 }
