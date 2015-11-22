@@ -13,6 +13,7 @@ public class Task {
     private String mId;
     private boolean mCompleted;
     private String mContent;
+    private int mPosition;
 
     public Task() {
         //TODO implement builder pattern, maybe in a future.
@@ -40,5 +41,13 @@ public class Task {
 
     public void setContent(String mContent) {
         this.mContent = mContent;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public void setPosition(int mPosition) {
+        this.mPosition = mPosition;
     }
 }

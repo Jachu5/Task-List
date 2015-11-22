@@ -31,9 +31,12 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     private final TaskInteractors.DeleteTaskInteractor mDeleteTaskInteractor;
     private final TaskInteractors.GetAllTaskInteractor mGetAllTaskInteractor;
 
+    private int mNumberOfTask;
+
 
     public MainPresenterImpl(MainView mainView, Context context) {
         mMainView = mainView;
+        mNumberOfTask = 0;
         mCommandExecutor = ((ApplicationWunderlist) context)
                 .getApplicationComponent().provideCommandExecutor();
         mCreateTaskInteractor = ((ApplicationWunderlist) context)
@@ -59,8 +62,9 @@ public class MainPresenterImpl implements MainPresenter<Task> {
                 mGetAllTaskInteractor.execute(new Observer<List<Task>>() {
                     @Override
                     public void onFinished(List<Task> result) {
+                        mNumberOfTask = result.size();
                         mMainView.setItems(result);
-                        Log.d(TAG, "Finished");
+                        Log.d(TAG, "Finished, list size: " + mNumberOfTask);
                     }
 
                     @Override
@@ -76,7 +80,7 @@ public class MainPresenterImpl implements MainPresenter<Task> {
     @Override
     public void onAddTask(final String taskString) {
 
-        final Task task = TaskFactory.createTaskWithNoId(false,taskString);
+        final Task task = TaskFactory.createTaskWithNoId(false, taskString);
 
         mCommandExecutor.run(new Command() {
             @Override
@@ -84,7 +88,8 @@ public class MainPresenterImpl implements MainPresenter<Task> {
                 mCreateTaskInteractor.execute(task, new Observer<Void>() {
                     @Override
                     public void onFinished(Void result) {
-                        Log.d(TAG, "Task created");
+                        mNumberOfTask++;
+                        Log.d(TAG, "Task created: " + mNumberOfTask);
                         mMainView.addTask(task);
                     }
 
@@ -142,7 +147,8 @@ public class MainPresenterImpl implements MainPresenter<Task> {
                 mDeleteTaskInteractor.execute(task, new Observer<Void>() {
                     @Override
                     public void onFinished(Void result) {
-                        Log.i(TAG, "task with ID:" + task.getId() + "has been deleted");
+                        mNumberOfTask--;
+                        Log.i(TAG, "task with ID:" + task.getId() + "has been deleted, number of tasks:" + mNumberOfTask);
                     }
 
                     @Override

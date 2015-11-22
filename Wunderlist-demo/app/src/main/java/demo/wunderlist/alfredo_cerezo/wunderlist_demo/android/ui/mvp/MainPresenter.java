@@ -2,7 +2,7 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.mvp;
 
 /**
  * Created by jachu on 19/11/15.
- *
+ * <p/>
  * Interface which defines the communication between  the View and the presenter in the MVP pattern
  */
 public interface MainPresenter<T> {

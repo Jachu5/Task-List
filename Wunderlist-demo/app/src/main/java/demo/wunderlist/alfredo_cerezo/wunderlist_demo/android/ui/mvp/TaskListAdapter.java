@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.R;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.AddTaskButton;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.swipw_and_move.ItemTouchHelperAdapter;
 import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities.Task;
 
@@ -183,7 +184,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public static class TaskViewHolderHeader extends RecyclerView.ViewHolder {
 
         private final EditText taskEditable;
-        private final ImageButton addButton;
+        private final AddTaskButton addButton;
 
         public TaskViewHolderHeader(View itemView, final MainPresenter presenter) {
             super(itemView);
@@ -207,7 +208,7 @@ public class TaskListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 }
             });
 
-            addButton = (ImageButton) itemView.findViewById(R.id.header_add_text_button);
+            addButton = (AddTaskButton) itemView.findViewById(R.id.header_add_text_button);
             addButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
