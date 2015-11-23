@@ -1,6 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 
+def renameOutput(output, version) {
+    def file = output.outputFile
+    def fileName = file.name.replace(".apk", "-" + version + ".apk")
+    fileName = fileName.replace("app-", "Wunderlist-demo-")
+    output.outputFile = new File(file.parentFile, fileName)
+}
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
@@ -15,12 +22,24 @@ android {
         targetSdkVersion 23
         multiDexEnabled true
         versionCode 1
-        versionName "1.0"
+        versionName "1.2"
     }
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            debuggable true
+        }
+
+        applicationVariants.all {
+            variant ->
+                variant.outputs.each {
+                    output -> renameOutput(output, defaultConfig.versionName)
+                }
         }
     }
 }
