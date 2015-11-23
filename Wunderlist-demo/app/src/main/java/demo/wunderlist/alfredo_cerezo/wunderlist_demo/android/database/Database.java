@@ -13,6 +13,6 @@ package demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.database;
 public class Database {
 
     public static final String NAME = "WunderlistTasks";
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
 }
