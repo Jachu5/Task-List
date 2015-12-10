@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/TaskList_card_element_padding">
 
-            <demo.wunderlist.alfredo_cerezo.wunderlist_demo.android.ui.AddTaskButton
+            <demo.wunderlist.alfredo_cerezo.wunderlist_demo.app.ui.AddTaskButton
                 android:id="@+id/header_add_text_button"
                 android:layout_width="25dp"
                 android:layout_height="25dp"

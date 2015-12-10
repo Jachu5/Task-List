@@ -1,6 +1,6 @@
 package demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.entities;
 
-import demo.wunderlist.alfredo_cerezo.wunderlist_demo.exceptions.WunderlistException;
+import demo.wunderlist.alfredo_cerezo.wunderlist_demo.core.exceptions.WunderlistException;
 
 /**
  * Created by alfredocerezoluna on 16/11/15.
